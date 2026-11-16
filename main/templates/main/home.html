@@ -1,4 +1,5 @@
 {% extends "main/base.html" %}
+{% load static %}
 
 {% block title %}Home | Blogger{% endblock %}
 
@@ -7,11 +8,19 @@
 
     <div class="posts-grid">
         {% for post in posts %}
-            <article class="post-card">
+
+            <a href="{% url 'main:post_detail_view' post.id %}" class="post-tile">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                {% else %}
+                <img src="{% static 'main/images/logo.svg' %}" alt="Blogger logo" class="tile-placeholder">
+                {% endif %}
+
                 <h2>{{ post.title }}</h2>
-                <p class="post-date">🕒 {{ post.published_at|date:"d M Y - h:i A" }}</p>
-                <p class="post-content">{{ post.content|linebreaksbr }}</p>
-            </article>
+                <p class="tile-author">✍️ {{ post.author }}</p>
+                <p class="tile-date">🕒 {{ post.published_at|date:"d M Y" }}</p>
+            </a>
+
         {% empty %}
             <p class="empty">No posts yet. <a href="{% url 'main:add_post_view' %}">Write the first one!</a></p>
         {% endfor %}

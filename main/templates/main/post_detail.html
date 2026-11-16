@@ -1,0 +1,45 @@
+{% extends "main/base.html" %}
+
+{% block title %}{{ post.title }} | Blogger{% endblock %}
+
+{% block content %}
+    <article class="post-detail">
+        <a href="{% url 'main:home_view' %}" class="back-link">← Back to posts</a>
+
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="detail-image">
+        {% endif %}
+
+        <h1>{{ post.title }}</h1>
+        <p class="post-author">✍️ {{ post.author }}</p>
+        <p class="post-date">🕒 {{ post.published_at|date:"d M Y - h:i A" }}</p>
+
+        <div class="post-content">{{ post.content|linebreaks }}</div>
+
+        <div class="post-actions">
+            <a href="{% url 'main:update_post_view' post.id %}" class="btn btn-small">✏️ Edit</a>
+
+            <button type="button" class="btn btn-small btn-danger"
+                    onclick="document.getElementById('delete-dialog').showModal()">
+                🗑️ Delete
+            </button>
+        </div>
+
+        <dialog id="delete-dialog" class="confirm-dialog">
+            <h3>Delete this post?</h3>
+            <p>"{{ post.title }}" will be deleted permanently.</p>
+
+            <div class="dialog-actions">
+                <button type="button" class="btn btn-small btn-secondary"
+                        onclick="this.closest('dialog').close()">
+                    Cancel
+                </button>
+
+                <form method="POST" action="{% url 'main:delete_post_view' post.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-small btn-danger">Yes, delete</button>
+                </form>
+            </div>
+        </dialog>
+    </article>
+{% endblock %}
