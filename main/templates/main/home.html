@@ -1,5 +1,4 @@
 {% extends "main/base.html" %}
-{% load static %}
 
 {% block title %}Home | Blogger{% endblock %}
 
@@ -8,21 +7,13 @@
 
     <div class="posts-grid">
         {% for post in posts %}
-
-            <a href="{% url 'main:post_detail_view' post.id %}" class="post-tile">
-                {% if post.image %}
-                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
-                {% else %}
-                <img src="{% static 'main/images/logo.svg' %}" alt="Blogger logo" class="tile-placeholder">
-                {% endif %}
-
-                <h2>{{ post.title }}</h2>
-                <p class="tile-author">✍️ {{ post.author }}</p>
-                <p class="tile-date">🕒 {{ post.published_at|date:"d M Y" }}</p>
-            </a>
-
+            {% include "main/partials/post_tile.html" %}
         {% empty %}
             <p class="empty">No posts yet. <a href="{% url 'main:add_post_view' %}">Write the first one!</a></p>
         {% endfor %}
+    </div>
+
+    <div class="view-all">
+        <a href="{% url 'main:all_posts_view' %}" class="btn">View all posts →</a>
     </div>
 {% endblock %}

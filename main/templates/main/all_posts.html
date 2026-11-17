@@ -1,0 +1,38 @@
+{% extends "main/base.html" %}
+
+{% block title %}All Posts | Blogger{% endblock %}
+
+{% block content %}
+<h1 class="page-title">All Posts</h1>
+<p class="posts-count">{{ total }} post{{ total|pluralize }}</p>
+
+<form method="GET" action="{% url 'main:all_posts_view' %}" class="search-form">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search posts...">
+    {% if category %}
+    <input type="hidden" name="category" value="{{ category }}">
+    {% endif %}
+    <button type="submit" class="btn">🔍 Search</button>
+</form>
+
+<div class="category-filters">
+    <a href="{% url 'main:all_posts_view' %}{% if query %}?q={{ query|urlencode }}{% endif %}"
+        class="filter-pill {% if not category %}active{% endif %}">All</a>
+
+    {% for value, label in categories %}
+    <a href="{% url 'main:all_posts_view' %}?category={{ value }}{% if query %}&q={{ query|urlencode }}{% endif %}"
+        class="filter-pill {% if category == value %}active{% endif %}">{{ label }}</a>
+    {% endfor %}
+</div>
+
+<div class="posts-grid">
+    {% for post in posts %}
+    {% include "main/partials/post_tile.html" %}
+    {% empty %}
+    {% if query %}
+    <p class="empty">No posts match "{{ query }}".</p>
+    {% else %}
+    <p class="empty">No posts yet.</p>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

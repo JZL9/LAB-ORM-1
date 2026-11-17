@@ -1,0 +1,11 @@
+<a href="{% url 'main:post_detail_view' post.id %}" class="post-tile">
+    {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+    {% endif %}
+
+    <span class="category-badge">{{ post.get_category_display }}</span>
+
+    <h2>{{ post.title }}</h2>
+    <p class="tile-author">✍️ {{ post.author }}</p>
+    <p class="tile-date">🕒 {{ post.published_at|date:"d M Y" }}</p>
+</a>

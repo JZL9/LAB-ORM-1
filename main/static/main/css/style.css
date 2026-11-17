@@ -178,7 +178,8 @@ nav a:hover {
 }
 
 .post-form input[type="text"],
-.post-form textarea {
+.post-form textarea,
+.post-form select {
     padding: 12px;
     background: rgba(255, 255, 255, 0.1);
     color: var(--text);
@@ -496,4 +497,102 @@ h1, h2, h3 {
 .post-tile:hover img.tile-placeholder {
     transform: translate(-50%, -50%) scale(1.1);
     opacity: 0.4;
+}
+
+.posts-count {
+    text-align: center;
+    color: var(--muted);
+    margin: -12px 0 24px;
+}
+
+.view-all {
+    text-align: center;
+    margin-top: 32px;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    max-width: 500px;
+    margin: 0 auto 32px;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 10px 14px;
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.search-form input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.post-form select option {
+    background: #232526;
+    color: #fff;
+}
+
+/* ===== Category badge ===== */
+.category-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.post-tile .category-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 1;
+}
+
+.post-detail .category-badge {
+    margin-bottom: 12px;
+}
+
+/* ===== Category filters ===== */
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+
+.filter-pill {
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--nav-link);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.filter-pill:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.filter-pill.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-text);
+    font-weight: 600;
 }

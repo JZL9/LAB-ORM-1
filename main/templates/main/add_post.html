@@ -13,6 +13,13 @@
 
         <label for="author">Author</label>
         <input type="text" id="author" name="author" maxlength="100" required>
+
+        <label for="category">Category</label>
+        <select id="category" name="category">
+            {% for value, label in categories %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
         
         <label for="content">Content</label>
         <textarea id="content" name="content" rows="8" required></textarea>
@@ -21,8 +28,8 @@
         <input type="file" id="image" name="image" accept="image/*">
 
         <label class="checkbox">
-         <input type="checkbox" name="is_published" checked>
-         Publish now
+            <input type="checkbox" name="is_published" checked>
+            Publish now
         </label>
 
         <button type="submit" class="btn">Publish</button>
