@@ -596,3 +596,84 @@ h1, h2, h3 {
     color: var(--accent-text);
     font-weight: 600;
 }
+
+/* ===== Reviews ===== */
+.reviews {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+}
+
+.reviews h2 {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+}
+
+.reviews h3 {
+    font-size: 1.2rem;
+    margin: 30px 0 12px;
+}
+
+.reviews > p {
+    color: var(--muted);
+}
+
+.review-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.review-item {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+}
+
+.review-item p:last-child {
+    margin-top: 6px;
+    color: var(--muted);
+}
+
+/* Review form */
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.review-form input,
+.review-form textarea,
+.review-form select {
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.review-form input:focus,
+.review-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.review-form .btn {
+    align-self: flex-start;
+    margin-top: 6px;
+}
+
+.review-form select option {
+    background: #232526;
+    color: #fff;
+}
+
+.review-rating {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+}

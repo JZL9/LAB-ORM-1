@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpRequest
-from .models import Post
+from .models import Post, Review
 
 
 # Create your views here.
@@ -39,7 +39,12 @@ def add_post_view(request: HttpRequest):
 
 def post_detail_view(request: HttpRequest, post_id: int):
     post = get_object_or_404(Post, pk=post_id)
-    return render(request, "main/post_detail.html", {"post": post})
+    reviews = post.reviews.order_by("-created_at")
+    return render(request, "main/post_detail.html", {
+        "post": post,
+        "reviews": reviews,
+        "ratings": Review.Rating.choices,
+    })
 
 def update_post_view(request: HttpRequest, post_id: int):
     post = get_object_or_404(Post, pk=post_id)
@@ -87,3 +92,18 @@ def all_posts_view(request: HttpRequest):
         "category": category,
         "categories": Post.Category.choices,
     })
+
+def add_review_view(request: HttpRequest, post_id: int):
+    post = get_object_or_404(Post, pk=post_id)
+
+    if request.method == "POST":
+        rating = request.POST.get("rating", "")
+
+        if rating.isdigit() and int(rating) in Review.Rating.values:
+            post.reviews.create(
+                reviewer_name=request.POST["reviewer_name"],
+                content=request.POST["content"],
+                rating=int(rating),
+            )
+
+    return redirect("main:post_detail_view", post_id=post.id)

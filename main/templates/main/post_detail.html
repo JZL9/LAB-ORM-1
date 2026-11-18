@@ -10,6 +10,7 @@
             <img src="{{ post.image.url }}" alt="{{ post.title }}" class="detail-image">
         {% endif %}
 
+        <span class="category-badge">{{ post.get_category_display }}</span>
         <h1>{{ post.title }}</h1>
         <p class="post-author">✍️ {{ post.author }}</p>
         <p class="post-date">🕒 {{ post.published_at|date:"d M Y - h:i A" }}</p>
@@ -24,6 +25,45 @@
                 🗑️ Delete
             </button>
         </div>
+
+        <section class="reviews">
+            <h2>Reviews</h2>
+
+            {% if reviews %}
+                <ul class="review-list">
+                    {% for review in reviews %}
+                        <li class="review-item">
+                            <p class="review-rating">{{ review.get_rating_display }}</p>
+                            <p><strong>{{ review.reviewer_name }}</strong> · {{ review.created_at|date:"d M Y - h:i A" }}</p>
+                            <p>{{ review.content|linebreaksbr }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No reviews yet. Be the first to leave a review!</p>
+            {% endif %}
+
+            <h3>Add a Review</h3>
+            <form method="POST" action="{% url 'main:add_review_view' post.id %}" class="review-form">
+                {% csrf_token %}
+
+                <label for="reviewer_name">Your Name</label>
+                <input type="text" id="reviewer_name" name="reviewer_name" maxlength="100" required>
+
+                <label for="rating">Rating</label>
+                <select id="rating" name="rating" required>
+                    {% for value, label in ratings reversed %}
+                        <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+
+
+                <label for="review_content">Review</label>
+                <textarea id="review_content" name="content" rows="4" required></textarea>
+
+                <button type="submit" class="btn">Submit Review</button>
+            </form>
+        </section>
 
         <dialog id="delete-dialog" class="confirm-dialog">
             <h3>Delete this post?</h3>
